@@ -39,12 +39,26 @@ app.get('/', function(request, response) {
     })
 });
 
-var count = 0;
 app.post('/api/upload', function(req, res) {
      if(done==true){
        console.log(req.files);
        res.end("File uploaded.");
      }
+});
+
+app.get('/api/videofiles', function(req, res) {
+  
+  fs.readdir('./uploads', function(err, files) {
+    console.log(files);
+
+    if (err) {
+      console.error('Cannot read uploads directory');
+      res.json({errorCode:42, msg:'Cannot read uploads directory'});
+    } else {
+      var nameList = {fileNames:files};
+      res.json(nameList);
+    }
+  });
 });
 
 
