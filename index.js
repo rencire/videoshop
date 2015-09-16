@@ -1,23 +1,25 @@
 var express = require('express');
 var fs = require('fs');
 var multer = require('multer');
+var app = express();
 
 var done = false;
-var upload = multer({
-  dest:'./uservids/',
-  rename: function (fieldname, filename) {
-    return filename+Date.now();
-  },
+
+
+app.use(multer({ dest: './uploads/',
+   rename: function (fieldname, filename) {
+         return filename+Date.now();
+           },
   onFileUploadStart: function (file) {
-    console.log(file.originalname + ' is starting ...')
+      console.log(file.originalname + ' is starting ...')
   },
   onFileUploadComplete: function (file) {
-    console.log(file.fieldname + ' uploaded to  ' + file.path)
-    done=true;
+      console.log(file.fieldname + ' uploaded to  ' + file.path)
+          done=true;
   }
-});
+}));
 
-var app = express();
+
 
 app.use(express.static(__dirname + '/public'));
 
@@ -38,23 +40,11 @@ app.get('/', function(request, response) {
 });
 
 var count = 0;
-app.post('/api/upload', upload.single('video'), function(req, res) {
-  var filename = 'test' + count.toString();
-    // debugger
-    console.log(req.body);
-    console.log(req.file);
+app.post('/api/upload', function(req, res) {
      if(done==true){
        console.log(req.files);
        res.end("File uploaded.");
      }
-    // console.log(req.files.video);
-    // fs.writeFile("./uservids/" + filename, req.body, function(err) {
-    //     if(err) {
-    //       return console.log(err);
-    //     }
-    //     console.log("The file " + filename + "was saved!");
-    //     count +=1;
-    // }); 
 });
 
 
