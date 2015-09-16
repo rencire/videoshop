@@ -1,0 +1,209 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="http://www1.macys.com/styles/min/mcom/base/macys-base.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js">
+    </script>
+    <style>
+    table {
+        width: 100%;
+    }
+    
+    .hidebutton {
+        display: none;
+    }
+    
+    .urlblock {}
+    
+    .showbutton {
+        display: inline-block;
+    }
+    
+    .tabs {
+        background-color: #EEE;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        height: 32px;
+        width: 100%;
+    }
+    /* line 126, ../../../../src/mcom/components/_tabs.scss */
+    
+    .tabs > li {
+        width: 50%;
+        float: left;
+        height: 33px;
+        border: 1px solid #CCC;
+        border-left: none;
+        overflow: hidden;
+        position: relative;
+        font-size: 12px;
+        text-align: center;
+        padding-top: 7px;
+        cursor: pointer;
+        background-color: #EEE;
+    }
+    /* line 138, ../../../../src/mcom/components/_tabs.scss */
+    
+    .tabs > li.selected {
+        background-color: #FFF;
+        border-bottom: 2px solid red;
+        font-weight: bold;
+    }
+    /* line 143, ../../../../src/mcom/components/_tabs.scss */
+    
+    .tabs > li:last-child {
+        /* border-right: none;*/
+    }
+    /* line 146, ../../../../src/mcom/components/_tabs.scss */
+    
+    .tabs > li > a {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        text-decoration: none;
+    }
+    
+    .tabs-content .content {
+        display: none;
+    }
+    
+    .tabs-content .active {
+        display: block;
+        background-color: #F7F7F7;
+    }
+    
+    #globalSearchInputField {
+        width: 40%;
+    }
+    
+    .userimage {
+        border-radius: 50%;
+        background-image: url('http://placehold.it/350x150');
+        height: 54px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .userContainer {
+        margin-top: 80px;
+        background: #fff;
+        height: 900px;
+        border-radius: 10px;
+    }
+    
+    .userdetails {
+        line-height: 50px;
+    }
+    
+    video {
+        width: 100%;
+    }
+    </style>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="main" src="/public/main.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="tabView" src="/public/scripts/views/tabView.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="handlebars" src="/public/scripts/lib/handlebars.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="/public/scripts/utils/jquerySupport.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="templates" src="/public/scripts/template.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="underscore" src="/public/scripts/lib/lodash.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="backbone" src="/public/scripts/lib/backbone.js"></script>
+</head>
+
+<body>
+    <div class="row">
+        <div class="large-16 columns">
+            <header id="globalMastheadContainer" style="height: 100px;">
+                <div id="globalMastheadSearchMenu">
+                    <div id="globalMastheadBrandLogo" class="left">
+                        <a target="_top" href="http://www1.macys.com/index.ognc?cm_sp=navigation-_-top_nav-_-macys_icon">
+                            <div id="macysHomePageLogo" class="globalMastheadLogo" alt="Macy's" title="Macy's"></div>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+    </div>
+    <div class="row">
+        <div id="topNav" class="large-16 small-16 columns">
+            <ul class="tabs">
+                <li class="tab-title active"><a href="#panel1">Women</a></li>
+                <li class="tab-title"><a href="#panel2">Men</a></li>
+            </ul>
+            <div class="tabs-content">
+                <div class="content" id="panel1">
+                    <% user.forEach(function(user) { %>
+                        <div class="row">
+                            <div class="small-16 columns userContainer">
+                                <div class="row rowTop">
+                                    <div class="userimage small-1 small-offset-1 columns">
+                                    </div>
+                                    <div class="userdetails small-13 small-offset-1 columns">
+                                        <%= user.name %>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="small-16 columns">
+                                        <video autobuffer controls>
+                                            <source id="mp4" src="<%= user.video %>">
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
+                </div>
+                <div class="content" id="panel2">
+                    women
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function() {
+        $(".tabs li").click(function() {
+            $(".tabs li").removeClass("selected");
+            $(this).addClass("selected");
+            var test = $(this).find("a").attr("href");
+            $(".tabs-content").children(".content").removeClass("active")
+            $(".tabs-content").find(test).addClass("active")
+
+        });
+        var videos = document.getElementsByTagName("video");
+        var fraction = 0.9;
+
+        function checkScroll() {
+
+            for (var i = 0; i < videos.length; i++) {
+
+                var video = videos[i];
+
+                var x = video.offsetLeft,
+                    y = video.offsetTop,
+                    w = video.offsetWidth,
+                    h = video.offsetHeight,
+                    r = x + w, //right
+                    b = y + h, //bottom
+                    visibleX, visibleY, visible;
+
+                visibleX = Math.max(0, Math.min(w, window.pageXOffset + window.innerWidth - x, r - window.pageXOffset));
+                visibleY = Math.max(0, Math.min(h, window.pageYOffset + window.innerHeight - y, b - window.pageYOffset));
+
+                visible = visibleX * visibleY / (w * h);
+
+                if (visible > fraction) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+
+            }
+
+        }
+
+        window.addEventListener('scroll', checkScroll, false);
+        window.addEventListener('resize', checkScroll, false);
+    });
+    </script>
+</body>
+
+</html>
