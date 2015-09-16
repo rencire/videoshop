@@ -113,6 +113,11 @@
     <div class="row">
         <div class="large-16 columns">
             <header id="globalMastheadContainer" style="height: 100px;">
+               <form action="/api/upload" method="post" enctype="multipart/form-data">
+                 <input type="file" name="video" accept="video/*" capture>
+                 <input type="submit" value="Upload">
+               </form>
+
                 <div id="globalMastheadSearchMenu">
                     <div id="globalMastheadBrandLogo" class="left">
                         <a target="_top" href="http://www1.macys.com/index.ognc?cm_sp=navigation-_-top_nav-_-macys_icon">
