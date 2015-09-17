@@ -1,23 +1,105 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <% include ../partials/header.ejs %>
+    <link rel="stylesheet" href="http://www1.macys.com/styles/min/mcom/base/macys-base.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js">
+    </script>
+    <style>
+      .commentImage{
+      	border-radius: 50%;
+      	margin-top:10px;
+      }
+      .commentRow{
+      	    border-top: 1px solid #eee;
+    		height: 68px;
+      }
+      .commentUser{
+      	font-size:25px;
+      	font-weight:bold;
+      	margin-top: 8px;
+      }
+      .comment{
+      	margin-top:5px;
+      }
+      .m-header {
+    background: #efefef;
+    font-weight: bold;
+    height: 2.8125em;
+    line-height: 2.8125em;
+    overflow: hidden;
+    padding: 0px 0;
+}
+.m-back {
+    background-repeat: no-repeat;
+    background-image: url("http://m.macys.com/mew20/images/arrow-left.svg");
+    background-position: left center;
+    background-size: 7% 50%;
+    cursor: pointer;
+}
+    </style>
 </head>
 
 <body>
-
-<% include ../partials/nav.ejs %>
-
-<div class="container">
-<h2>Database Results</h2>
-
-<ul>
-    <% results.forEach(function(r) { %>
-        <li><%= r.id %> - <%= r.name %></li>
+	<div class="m-header">
+    <div class="row">
+      <a href="/"> 	
+      <div class="small-16 columns m-header-first"><div id="" class="m-back">&nbsp;</div></div>
+     </a>
+      
+    </div>
+  </div>
+    <div class="row">
+        <div class="large-16 columns">
+            <header id="globalMastheadContainer" style="height: 100px;">
+                <div id="globalMastheadSearchMenu">
+                    <div id="globalMastheadBrandLogo" class="left">
+                        <a target="_top" href="http://www1.macys.com/index.ognc?cm_sp=navigation-_-top_nav-_-macys_icon">
+                            <div id="macysHomePageLogo" class="globalMastheadLogo" alt="Macy's" title="Macy's"></div>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+    </div>
+    <div id="commentarea">
+    <% comment.forEach(function(comment) { %>
+    <div class="row commentRow">
+        <div class="commentImage small-1 small-offset-1  columns">
+           <img src="<%= comment.picture%>" alt="Smiley face" height="42" width="42"> 
+        </div>
+        
+        <div class=" small-14 columns">
+        	<div class="row">
+        		<div class="commentUser small-16 columns">
+            		<%= comment.name%> 
+        		</div>
+        	</div>	
+        	<div class="row">
+        		<div class="comment small-16 columns">
+            		<%= comment.comment%> 
+            	</div>
+            </div>		
+        </div>
+    </div>
     <% }); %>
-</ul>
-
-</div>
-
+    </div>
+    <div class="row">
+        <div class=" commentArea small-14  small-centered columns">
+            <input id="commentInput" class="ember-view ember-text-field" maxlength="140" placeholder="Say something nice" name="comment" type="text">
+        </div>
+    </div>
 </body>
+<script>
+  $(document).ready(function() {
+
+  	$("input").on("keydown",function search(e) {
+    if(e.keyCode == 13) {
+        // $("#commentarea").append();
+    }
+    });
+
+  });
+</script>
+
 </html>

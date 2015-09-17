@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="http://www1.macys.com/styles/min/mcom/base/macys-base.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js">
     </script>
+    <script type="text/javascript" src="/public/scripts/isInViewport.min.js">
+    </script>
     <style>
     table {
         width: 100%;
@@ -88,12 +90,20 @@
     .userContainer {
         margin-top: 80px;
         background: #fff;
-        height: 900px;
+        height: auto;
         border-radius: 10px;
     }
     
     .userdetails {
         line-height: 50px;
+    }
+    .comment{
+      margin-top: 61px;
+    margin-bottom: 30px;
+    color:gray;
+    }
+    .commentArea{
+      margin-bottom: 70px;
     }
     
     video {
@@ -115,7 +125,7 @@
             <header id="globalMastheadContainer" style="height: 100px;">
                 <div id="globalMastheadSearchMenu">
                     <div id="globalMastheadBrandLogo" class="left">
-                        <a target="_top" href="http://www1.macys.com/index.ognc?cm_sp=navigation-_-top_nav-_-macys_icon">
+                        <a target="_top" href="/">
                             <div id="macysHomePageLogo" class="globalMastheadLogo" alt="Macy's" title="Macy's"></div>
                         </a>
                     </div>
@@ -126,19 +136,22 @@
     <div class="row">
         <div id="topNav" class="large-16 small-16 columns">
             <ul class="tabs">
-                <li class="tab-title active"><a href="#panel1">Women</a></li>
+                <li class="tab-title active selected"><a href="#panel1">Women</a></li>
                 <li class="tab-title"><a href="#panel2">Men</a></li>
             </ul>
             <div class="tabs-content">
-                <div class="content" id="panel1">
+                <div class="content active" id="panel1">
                     <% user.forEach(function(user) { %>
                         <div class="row">
                             <div class="small-16 columns userContainer">
                                 <div class="row rowTop">
                                     <div class="userimage small-1 small-offset-1 columns">
                                     </div>
-                                    <div class="userdetails small-13 small-offset-1 columns">
+                                    <div class="userdetails small-12 small-offset-1 columns">
                                         <%= user.name %>
+                                    </div>
+                                     <div class="loops small-1 small-offset-1 columns">
+                                      <%= user.loops %>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -148,6 +161,15 @@
                                         </video>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="comment small-10 small-centered  columns">
+                                      <a href="/comment">
+                                       <img src="/public/image/comment.png" alt="Smiley face" height="42" width="42">
+                                      </a>  
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <% }); %>
@@ -168,40 +190,26 @@
             $(".tabs-content").find(test).addClass("active")
 
         });
-        var videos = document.getElementsByTagName("video");
-        var fraction = 0.9;
+       var testloop=true;
+       $(window).scroll(function() {
+          $('video').each(function() {
 
-        function checkScroll() {
-
-            for (var i = 0; i < videos.length; i++) {
-
-                var video = videos[i];
-
-                var x = video.offsetLeft,
-                    y = video.offsetTop,
-                    w = video.offsetWidth,
-                    h = video.offsetHeight,
-                    r = x + w, //right
-                    b = y + h, //bottom
-                    visibleX, visibleY, visible;
-
-                visibleX = Math.max(0, Math.min(w, window.pageXOffset + window.innerWidth - x, r - window.pageXOffset));
-                visibleY = Math.max(0, Math.min(h, window.pageYOffset + window.innerHeight - y, b - window.pageYOffset));
-
-                visible = visibleX * visibleY / (w * h);
-
-                if (visible > fraction) {
-                    video.play();
-                } else {
-                    video.pause();
-                }
-
-            }
-
-        }
-
-        window.addEventListener('scroll', checkScroll, false);
-        window.addEventListener('resize', checkScroll, false);
+              if ($(this).is(":in-viewport( 400 )")) {
+                   var ele=$(this).parent().parent().parent().find(".loops");
+                  
+                  var loopValue=ele.html()
+                  loopValue= parseInt(loopValue);
+                  loopValue=loopValue+1;
+                  ele.html(loopValue);
+                 
+                  $(this)[0].play();
+              } else{
+                  // testloop=true;
+                   $(this)[0].pause();
+                   testloop=true;
+              }
+          });
+      });
     });
     </script>
 </body>
