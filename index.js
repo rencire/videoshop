@@ -38,11 +38,23 @@ var comment=[
 var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY;
 var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
 var S3_BUCKET = process.env.S3_BUCKET;
+var AWS_S3_HOST = 'https://' + S3_BUCKET + '.s3.amazonaws.com/';
 
 // DB connection string
 var url = process.env.MONGOLAB_URI;
 
 
+// Helper functions
+function processPosts(posts, category) {
+  return posts.filter(function(post) {
+    return post.category === category;
+  }).map(function(post) {
+    post.filename = AWS_S3_HOST + post.filename;
+    return post;
+  });
+}
+
+// Routing
 app.get('/', function(request, response) {
   mongodb.MongoClient.connect(url, function (err, db) {
     if (err) {
@@ -62,20 +74,9 @@ app.get('/', function(request, response) {
         } else {
           console.log('Retrieved %d documents from the "videos" collection. The documents retrieved are:', result.length, result);
 
-          var menposts = result.filter(function(post) {
-            return post.category === 'men';
-          });
-
-          var womenposts = result.filter(function(post) {
-            return post.category === 'women';
-          });
-
-          console.log(menposts);
-          console.log(womenposts);
-
           response.render('pages/index', {
-                menposts: menposts,
-                womemposts:womenposts
+            menposts:   processPosts(result, 'men'),
+            womenposts: processPosts(result, 'women')
           });
 
         }
@@ -177,36 +178,34 @@ app.get('/api/videos', function(req, res) {
 
 // test saving items to db
 
-app.get('/api/testdb', function(req, res) {
+// app.get('/api/loaddb', function(req, res) {
+//   // Use connect method to connect to the Server
+//   mongodb.MongoClient.connect(url, function (err, db) {
+//     if (err) {
+//       console.log('Unable to connect to the mongoDB server. Error:', err);
+//     } else {
+//       console.log('Connection established to', url);
+//
+//       var collection = db.collection('videos');
+//
+//       //Create some videos
+//       var video1 = {user: 'teeswizzle', loops:3, filename: 'cologne.mp4', category: 'men', tags:['men','hat', 'summer'] };
+//       var video2 = {user: 'starXOXO', loops:2, filename: 'Piano.mp4', category: 'women', tags:['female','dress', 'flashy', 'fall'] };
+//       var video3 = {user: 'azndragon008', loops:6, filename: 'longBoots.mp4', category: 'women', tags:['heels','tall', 'formal']};
+//
+//       collection.insert([video1, video2, video3], function (err, result) {
+//         if (err) {
+//           console.log(err);
+//         } else {
+//           console.log('Inserted %d documents into the "videos" collection. The documents inserted with "_id" are:', result.result.n, result);
+//         }
+//         db.close();
+//       });
+//     }
+//   });
+//   res.send();
+// });
 
-  console.log(url);
-  // Use connect method to connect to the Server
-  mongodb.MongoClient.connect(url, function (err, db) {
-    if (err) {
-      console.log('Unable to connect to the mongoDB server. Error:', err);
-    } else {
-      console.log('Connection established to', url);
-
-      var collection = db.collection('videos');
-
-      //Create some videos
-      var video1 = {user: 'teeswizzle', loops:3, filename: 'abcd.mp4', category: 'men', tags:['men','hat', 'summer'] };
-      var video2 = {user: 'starXOXO', loops:2, filename: 'efgh.mp4', category: 'women', tags:['female','dress', 'flashy', 'fall'] };
-      var video3 = {user: 'azndragon008', loops:6, filename: 'strut.mp4', category: 'women', tags:['heels','tall', 'formal']};
-
-      collection.insert([video1, video2, video3], function (err, result) {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log('Inserted %d documents into the "videos" collection. The documents inserted with "_id" are:', result.result.n, result);
-        }
-        db.close();
-      });
-    }
-  });
-  res.send();
-
-});
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
