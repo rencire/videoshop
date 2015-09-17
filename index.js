@@ -66,7 +66,7 @@ app.get('/api/sign_s3', function(req, res) {
   });
 });
 
-app.post('/api/upload', function(req, res) {
+app.post('/upload', function(req, res) {
      // if(done==true){
      //   console.log(req.files);
      //   res.end("File uploaded.");
