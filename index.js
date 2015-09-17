@@ -87,6 +87,13 @@ app.get('/', function(request, response) {
 
 });
 
+app.get('/upload', function(req, res) {
+  res.render('pages/upload', {
+  });
+});
+
+
+
 
 app.get('/comment', function(request, response) {
   response.render('pages/db',{
