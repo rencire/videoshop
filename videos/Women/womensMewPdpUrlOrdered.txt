@@ -1,0 +1,29 @@
+blueDress: http://m.macys.com/shop/product/lauren-ralph-lauren-belted-three-quarter-sleeve-dress?ID=2341829&CategoryID=5449&LinkType=#fn=PAGEINDEX%3D2%26sp%3D2%26spc%3D1381%26slotId%3D71%26kws%3Dblue%20dress
+earMuffs: http://m.macys.com/shop/product/lauren-ralph-lauren-belted-three-quarter-sleeve-dress?ID=2341829&CategoryID=5449&LinkType=#fn=PAGEINDEX%3D2%26sp%3D2%26spc%3D1381%26slotId%3D71%26kws%3Dblue%20dress
+longBoots: http://m.macys.com/shop/product/bcbgeneration-beasly-tall-boots?ID=2422432&CategoryID=25122#fn=sp%3D1%26spc%3D79%26slotId%3D38%26kws%3Dlong%20boots
+lipStick: http://m.macys.com/shop/product/dolce-gabbana-dolce-matte-lipstick?ID=2177668&CategoryID=30077#fn=sp%3D1%26spc%3D160%26slotId%3D4%26kws%3Dlipstick
+kateSpadeBag: http://m.macys.com/shop/product/bcbgeneration-stripe-tote?ID=2181822&CategoryID=26846#fn=sp%3D1%26spc%3D10%26slotId%3D8%26kws%3Dtote%20striped
+MKBlackDress: http://m.macys.com/shop/product/inc-international-concepts-ruched-tulip-dress-only-at-macys?ID=2343724&CategoryID=5449&tdp=cm_app~zMCOM-NAVAPP~xcm_zone~zPDP_ZONE_A~xcm_choiceId~zcid630011-c2a969f7-868b-4f75-80b4-de00e2f3a24b%40H7%40customers%2Balso%2Bshopped%245449%242343724~xcm_srcCatID~zonsite_search~xcm_pos~zPos2
+Glasses: http://m.macys.com/shop/product/ray-ban-sunglasses-ray-ban-rb4224-49?ID=2329617&CategoryID=28295&LinkType=#fn=PAGEINDEX%3D6%26sp%3D6%26spc%3D840%26slotId%3D206%26kws%3Dsunglasses%20womens
+pinkDress: http://m.macys.com/shop/product/ralph-lauren-little-girls-gauze-smocked-dress?ID=2217182&CategoryID=5991&LinkType=&swatchColor=Yellow%20Flash#fn=sp%3D1%26spc%3D68%26slotId%3D22%26kws%3Dyellow%20dress
+umbrella: http://m.macys.com/shop/product/totes-travel-aoc-umbrella?ID=598480&CategoryID=47665#fn=sp%3D1%26spc%3D63%26slotId%3D8%26kws%3Dumbrella
+greenDress: http://m.macys.com/shop/product/rare-editions-little-girls-crochet-shift-dress?ID=2268673&CategoryID=5991&LinkType=&swatchColor=Mint#fn=PAGEINDEX%3D2%26sp%3D2%26spc%3D266%26slotId%3D61%26kws%3Dgreen%20dress
+multiLipstick: http://m.macys.com/shop/product/tory-burch-lip-color-gift-set?ID=2374187&CategoryID=30076#fn=sp%3D1%26spc%3D160%26slotId%3D14%26kws%3Dlipstick
+Piano: http://m.macys.com/shop/product/ralph-lauren-little-girls-gauze-smocked-dress?ID=2217182&CategoryID=5991&LinkType=&swatchColor=Yellow%20Flash#fn=sp%3D1%26spc%3D68%26slotId%3D22%26kws%3Dyellow%20dress
+Running: http://m.macys.com/shop/product/charter-club-plus-size-crochet-panel-elbow-sleeve-top?ID=2258690&CategoryID=55613&LinkType=#fn=sp%3D1%26spc%3D278%26slotId%3D16%26kws%3Dwhite%20blouse
+UGC_Girl: http://m.macys.com/shop/product/kasper-pinstriped-pants?ID=2094534&CategoryID=157#fn=sp%3D1%26spc%3D10%26slotId%3D4%26kws%3Dpinstripe%20pants%20women
+tayloSwift: http://m.macys.com/shop/product/guess-girls-embroidered-sequin-dress?ID=2405123&CategoryID=5991#fn=sp%3D1%26spc%3D17%26slotId%3D15%26kws%3Dsparkling%20dress
+blackShirt: http://m.macys.com/shop/product/lucky-brand-three-quarter-sleeve-crochet-trim-top-only-at-macys?ID=2264793&CategoryID=255#fn=sp%3D1%26spc%3D2376%26slotId%3D17%26kws%3Dwomens%20black%20shirt
+
+
+
+
+
+
+
+
+
+
+
+
+
