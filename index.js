@@ -154,9 +154,9 @@ app.get('/api/testdb', function(req, res) {
       var collection = db.collection('videos');
 
       //Create some videos
-      var video1 = {user: 'teeswizzle', filename: 'abcd.mp4', category: 'men', tags:['men','hat', 'summer'] };
-      var video2 = {user: 'starXOXO', filename: 'efgh.mp4', category: 'women', tags:['female','dress', 'flashy', 'fall'] };
-      var video3 = {user: 'azndragon008', filename: 'strut.mp4', category: 'women', tags:['heels','tall', 'formal']};
+      var video1 = {user: 'teeswizzle', loops:3, filename: 'abcd.mp4', category: 'men', tags:['men','hat', 'summer'] };
+      var video2 = {user: 'starXOXO', loops:2, filename: 'efgh.mp4', category: 'women', tags:['female','dress', 'flashy', 'fall'] };
+      var video3 = {user: 'azndragon008', loops:6, filename: 'strut.mp4', category: 'women', tags:['heels','tall', 'formal']};
 
       collection.insert([video1, video2, video3], function (err, result) {
         if (err) {
