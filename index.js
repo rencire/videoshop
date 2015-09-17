@@ -44,10 +44,46 @@ var url = process.env.MONGOLAB_URI;
 
 
 app.get('/', function(request, response) {
-  response.render('pages/index', {
-        menposts: manpost,
-        womemposts:womanpost
-    })
+  mongodb.MongoClient.connect(url, function (err, db) {
+    if (err) {
+      console.log('Unable to connect to the mongoDB server. Error:', err);
+      // TODO set http status codes
+      res.json({error:"Could not connect to db"});
+    } else {
+      console.log('Connection established to', url);
+
+      var collection = db.collection('videos');
+
+      collection.find({}).toArray(function (err, result) {
+        if (err) {
+          console.log(err);
+          res.json({error:"Could not videos retrieve from db "});
+
+        } else {
+          console.log('Retrieved %d documents from the "videos" collection. The documents retrieved are:', result.length, result);
+
+          var menposts = result.filter(function(post) {
+            return post.category === 'men';
+          });
+
+          var womenposts = result.filter(function(post) {
+            return post.category === 'women';
+          });
+
+          console.log(menposts);
+          console.log(womenposts);
+
+          response.render('pages/index', {
+                menposts: menposts,
+                womemposts:womenposts
+          });
+
+        }
+        db.close()
+      });
+    }
+  });
+
 });
 
 
