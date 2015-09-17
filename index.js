@@ -8,8 +8,9 @@ var app = express();
 
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-
+app.use('/web20/assets/img/nav/', express.static(__dirname + '/public/images'));
 app.use('/public', express.static(__dirname + '/public'));
+
 
 
 app.set('port', (process.env.PORT || 5000));
