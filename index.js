@@ -1,5 +1,6 @@
 var express = require('express');
 var fs = require('fs');
+var mongodb = require('mongodb');
 var multer = require('multer');
 var app = express();
 
@@ -61,6 +62,40 @@ app.get('/api/videofiles', function(req, res) {
   });
 });
 
+
+// test saving items to db
+var url = process.env.MONGOLAB_URI
+console.log(url);
+
+app.get('/api/testdb', function(req, res) {
+
+  console.log(url);
+  // Use connect method to connect to the Server
+  mongodb.MongoClient.connect(url, function (err, db) {
+    if (err) {
+      console.log('Unable to connect to the mongoDB server. Error:', err);
+    } else {
+      console.log('Connection established to', url);
+
+      var collection = db.collection('videos');
+
+      //Create some videos
+      var video1 = {filename: 'abcd.mp4', category: 'men', tags:['men','hat', 'summer'] };
+      var video2 = {filename: 'efgh.mp4', category: 'women', tags:['female','dress', 'flashy', 'fall'] };
+      var video3 = {filename: 'strut.mp4', category: 'women', tags:['heels','tall', 'formal']};
+
+      collection.insert([video1, video2, video3], function (err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Inserted %d documents into the "videos" collection. The documents inserted with "_id" are:', result.result.n, result);
+        }
+        db.close();
+      });
+    }
+  });
+  res.send();
+});
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

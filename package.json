@@ -9,6 +9,7 @@
   "dependencies": {
     "ejs": "2.3.3",
     "express": "~4.10.2",
+    "mongodb": "^2.0.43",
     "multer": "~0.1.6"
   },
   "engines": {
