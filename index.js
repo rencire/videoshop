@@ -41,6 +41,9 @@ var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY;
 var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
 var S3_BUCKET = process.env.S3_BUCKET
 
+// DB connection string
+var url = process.env.MONGOLAB_URI
+
 app.get('/', function(request, response) {
   response.render('pages/index', {
         user: user
@@ -101,10 +104,33 @@ app.get('/api/videofiles', function(req, res) {
   });
 });
 
+app.get('/api/videos', function(req, res) {
+  mongodb.MongoClient.connect(url, function (err, db) {
+    if (err) {
+      console.log('Unable to connect to the mongoDB server. Error:', err);
+      // TODO set http status codes
+      res.json({error:"Could not connect to db"});
+    } else {
+      console.log('Connection established to', url);
+
+      var collection = db.collection('videos');
+
+      collection.find({}).toArray(function (err, result) {
+        if (err) {
+          console.log(err);
+          res.json({error:"Could not videos retrieve from db "});
+
+        } else {
+          console.log('Retrieved %d documents from the "videos" collection. The documents retrieved are:', result.length, result);
+          res.json(result);
+        }
+        db.close()
+      });
+    }
+  });
+});
 
 // test saving items to db
-var url = process.env.MONGOLAB_URI
-console.log(url);
 
 app.get('/api/testdb', function(req, res) {
 
@@ -119,9 +145,9 @@ app.get('/api/testdb', function(req, res) {
       var collection = db.collection('videos');
 
       //Create some videos
-      var video1 = {filename: 'abcd.mp4', category: 'men', tags:['men','hat', 'summer'] };
-      var video2 = {filename: 'efgh.mp4', category: 'women', tags:['female','dress', 'flashy', 'fall'] };
-      var video3 = {filename: 'strut.mp4', category: 'women', tags:['heels','tall', 'formal']};
+      var video1 = {user: 'teeswizzle', filename: 'abcd.mp4', category: 'men', tags:['men','hat', 'summer'] };
+      var video2 = {user: 'starXOXO', filename: 'efgh.mp4', category: 'women', tags:['female','dress', 'flashy', 'fall'] };
+      var video3 = {user: 'azndragon008', filename: 'strut.mp4', category: 'women', tags:['heels','tall', 'formal']};
 
       collection.insert([video1, video2, video3], function (err, result) {
         if (err) {
