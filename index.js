@@ -38,7 +38,6 @@ var comment=[
 var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY;
 var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
 var S3_BUCKET = process.env.S3_BUCKET;
-var AWS_S3_HOST = 'https://' + S3_BUCKET + '.s3.amazonaws.com/';
 
 // DB connection string
 var url = process.env.MONGOLAB_URI;
@@ -75,8 +74,8 @@ app.get('/', function(request, response) {
           console.log('Retrieved %d documents from the "videos" collection. The documents retrieved are:', result.length, result);
 
           response.render('pages/index', {
-            menposts:   processPosts(result, 'men'),
-            womenposts: processPosts(result, 'women')
+            menposts:   result.filter(function(post) { return post.category === 'men' }),
+            womenposts: result.filter(function(post) { return post.category === 'women' })
           });
 
         }
@@ -196,9 +195,9 @@ app.get('/api/loaddb', function(req, res) {
       var collection = db.collection('videos');
 
       //Create some videos
-      var video1 = {user: 'teeswizzle', loops:3, filename: 'cologne.mp4', category: 'men', tags:['men','hat', 'summer'] };
-      var video2 = {user: 'starXOXO', loops:2, filename: 'Piano.mp4', category: 'women', tags:['female','dress', 'flashy', 'fall'] };
-      var video3 = {user: 'azndragon008', loops:6, filename: 'longBoots.mp4', category: 'women', tags:['heels','tall', 'formal']};
+      var video1 = {user: 'teeswizzle', loops:3, filename: 'https://' + S3_BUCKET + '.s3.amazonaws.com/cologne.mp4', category: 'men', tags:['men','hat', 'summer'] };
+      var video2 = {user: 'starXOXO', loops:2, filename: 'https://' + S3_BUCKET + '.s3.amazonaws.com/Piano.mp4', category: 'women', tags:['female','dress', 'flashy', 'fall'] };
+      var video3 = {user: 'azndragon008', loops:6, filename: 'https://' + S3_BUCKET + '.s3.amazonaws.com/longBoots.mp4', category: 'women', tags:['heels','tall', 'formal']};
 
       collection.insert([video1, video2, video3], function (err, result) {
         if (err) {
