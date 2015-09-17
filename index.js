@@ -2,21 +2,22 @@ var express = require('express');
 var fs = require('fs');
 var mongodb = require('mongodb');
 var multer = require('multer');
+var aws = require('aws-sdk');
+
+
 var app = express();
 
 var done = false;
-
-
 app.use(multer({ dest: './uploads/',
-   rename: function (fieldname, filename) {
-         return filename+Date.now();
-           },
+  rename: function (fieldname, filename) {
+    return filename+Date.now();
+  },
   onFileUploadStart: function (file) {
-      console.log(file.originalname + ' is starting ...')
+    console.log(file.originalname + ' is starting ...')
   },
   onFileUploadComplete: function (file) {
-      console.log(file.fieldname + ' uploaded to  ' + file.path)
-          done=true;
+    console.log(file.fieldname + ' uploaded to  ' + file.path);
+    done=true;
   }
 }));
 
@@ -34,10 +35,48 @@ var user = [
         { name: 'Martini', video: "http://grochtdreis.de/fuer-jsfiddle/video/sintel_trailer-480.mp4" },
         { name: 'Scotch', video: "http://grochtdreis.de/fuer-jsfiddle/video/sintel_trailer-480.mp4" }
     ];
+
+// AWS Env Vars
+var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY;
+var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
+var S3_BUCKET = process.env.S3_BUCKET
+
 app.get('/', function(request, response) {
   response.render('pages/index', {
         user: user
     })
+});
+
+app.get('/api/sign_s3', function(req, res) {
+  // add check for only video files: .mp4, etc.
+    
+  aws.config.update({
+    accessKeyId: AWS_ACCESS_KEY,
+    secretAccessKey: AWS_SECRET_KEY
+  });
+
+  var s3 = new aws.S3();
+  var s3_params = {
+    Bucket: S3_BUCKET,
+    Key: req.query.file_name,
+    Expires: 60,
+    ContentType: req.query.file_type,
+    ACL: 'public-read'
+  };
+
+  s3.getSignedUrl('putObject', s3_params, function(err, data) {
+    if(err){
+      console.log(err);
+    } else {
+      var return_data = {
+        signed_request: data,
+        url: 'https://' + S3_BUCKET + '.s3.amazonaws.com/' + req.query.file_name
+      }
+      console.log('return_data:');
+      console.log(return_data);
+      res.json(return_data);
+    }
+  });
 });
 
 app.post('/api/upload', function(req, res) {
