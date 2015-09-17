@@ -178,33 +178,33 @@ app.get('/api/videos', function(req, res) {
 
 // test saving items to db
 
-// app.get('/api/loaddb', function(req, res) {
-//   // Use connect method to connect to the Server
-//   mongodb.MongoClient.connect(url, function (err, db) {
-//     if (err) {
-//       console.log('Unable to connect to the mongoDB server. Error:', err);
-//     } else {
-//       console.log('Connection established to', url);
-//
-//       var collection = db.collection('videos');
-//
-//       //Create some videos
-//       var video1 = {user: 'teeswizzle', loops:3, filename: 'cologne.mp4', category: 'men', tags:['men','hat', 'summer'] };
-//       var video2 = {user: 'starXOXO', loops:2, filename: 'Piano.mp4', category: 'women', tags:['female','dress', 'flashy', 'fall'] };
-//       var video3 = {user: 'azndragon008', loops:6, filename: 'longBoots.mp4', category: 'women', tags:['heels','tall', 'formal']};
-//
-//       collection.insert([video1, video2, video3], function (err, result) {
-//         if (err) {
-//           console.log(err);
-//         } else {
-//           console.log('Inserted %d documents into the "videos" collection. The documents inserted with "_id" are:', result.result.n, result);
-//         }
-//         db.close();
-//       });
-//     }
-//   });
-//   res.send();
-// });
+app.get('/api/loaddb', function(req, res) {
+  // Use connect method to connect to the Server
+  mongodb.MongoClient.connect(url, function (err, db) {
+    if (err) {
+      console.log('Unable to connect to the mongoDB server. Error:', err);
+    } else {
+      console.log('Connection established to', url);
+
+      var collection = db.collection('videos');
+
+      //Create some videos
+      var video1 = {user: 'teeswizzle', loops:3, filename: 'cologne.mp4', category: 'men', tags:['men','hat', 'summer'] };
+      var video2 = {user: 'starXOXO', loops:2, filename: 'Piano.mp4', category: 'women', tags:['female','dress', 'flashy', 'fall'] };
+      var video3 = {user: 'azndragon008', loops:6, filename: 'longBoots.mp4', category: 'women', tags:['heels','tall', 'formal']};
+
+      collection.insert([video1, video2, video3], function (err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Inserted %d documents into the "videos" collection. The documents inserted with "_id" are:', result.result.n, result);
+        }
+        db.close();
+      });
+    }
+  });
+  res.send();
+});
 
 
 app.listen(app.get('port'), function() {
