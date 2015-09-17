@@ -1,30 +1,14 @@
 var express = require('express');
 var fs = require('fs');
 var mongodb = require('mongodb');
-var multer = require('multer');
 var aws = require('aws-sdk');
-
+var bodyParser = require('body-parser');
 
 var app = express();
 
-var done = false;
-app.use(multer({ dest: './uploads/',
-  rename: function (fieldname, filename) {
-    return filename+Date.now();
-  },
-  onFileUploadStart: function (file) {
-    console.log(file.originalname + ' is starting ...')
-  },
-  onFileUploadComplete: function (file) {
-    console.log(file.fieldname + ' uploaded to  ' + file.path);
-    done=true;
-  }
-}));
-
-
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.use(express.static(__dirname + '/public'));
-
 app.set('port', (process.env.PORT || 5000));
 
 // views is directory for all template files
@@ -83,10 +67,12 @@ app.get('/api/sign_s3', function(req, res) {
 });
 
 app.post('/api/upload', function(req, res) {
-     if(done==true){
-       console.log(req.files);
-       res.end("File uploaded.");
-     }
+     // if(done==true){
+     //   console.log(req.files);
+     //   res.end("File uploaded.");
+     // }
+     console.log(req.body);
+     res.end("Video uploaded!");
 });
 
 app.get('/api/videofiles', function(req, res) {

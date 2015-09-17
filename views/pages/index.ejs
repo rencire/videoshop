@@ -166,11 +166,13 @@
     <div class="row">
         <div class="large-16 columns">
             <header id="globalMastheadContainer" style="height: 100px;">
-               <form action="/api/upload" method="post" enctype="multipart/form-data">
-                 <input type="file" id="video-file-input" name="video" accept="video/*" capture>
+               <input type="file" id="video-file-input" name="video" accept="video/*" capture>
+               <form action="/api/upload" method="post" enctype="application/x-www-form-urlencoded">
                  <input type="hidden" id="video-url" name="video-url" value="some_value" />
+                 <input type="text" id="text" name="text" value="some_value" />
                  <input type="submit" value="Upload">
                </form>
+
                 <video id="video-preview" src="" controls>
                 </video>
 

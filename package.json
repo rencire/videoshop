@@ -7,11 +7,11 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "aws-sdk": "*",
+    "body-parser": "^1.14.0",
     "ejs": "2.3.3",
     "express": "~4.10.2",
-    "mongodb": "^2.0.43",
-    "multer": "~0.1.6",
-    "aws-sdk": "*"
+    "mongodb": "^2.0.43"
   },
   "engines": {
     "node": "0.12.7"
