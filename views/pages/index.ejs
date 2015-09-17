@@ -204,23 +204,23 @@
             </ul>
             <div class="tabs-content">
                 <div class="content active" id="panel1">
-                    <% user.forEach(function(user) { %>
+                    <% womemposts.forEach(function(womanpost) { %>
                         <div class="row">
                             <div class="small-16 columns userContainer">
                                 <div class="row rowTop">
                                     <div class="userimage small-1 small-offset-1 columns">
                                     </div>
                                     <div class="userdetails small-12 small-offset-1 columns">
-                                        <%= user.name %>
+                                        <%= womanpost.user %>
                                     </div>
                                      <div class="loops small-1 small-offset-1 columns">
-                                      <%= user.loops %>
+                                      <%= womanpost.loops %>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="small-16 columns">
                                         <video autobuffer controls>
-                                            <source id="mp4" src="<%= user.video %>">
+                                            <source id="mp4" src="<%= womanpost.filename %>">
                                         </video>
                                     </div>
                                 </div>
@@ -238,7 +238,38 @@
                         <% }); %>
                 </div>
                 <div class="content" id="panel2">
-                    women
+                    <% menposts.forEach(function(manpost) { %>
+                        <div class="row">
+                            <div class="small-16 columns userContainer">
+                                <div class="row rowTop">
+                                    <div class="userimage small-1 small-offset-1 columns">
+                                    </div>
+                                    <div class="userdetails small-12 small-offset-1 columns">
+                                        <%= manpost.user %>
+                                    </div>
+                                     <div class="loops small-1 small-offset-1 columns">
+                                      <%= manpost.loops %>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="small-16 columns">
+                                        <video autobuffer controls>
+                                            <source id="mp4" src="<%= manpost.filename %>">
+                                        </video>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="comment small-10 small-centered  columns">
+                                      <a href="/comment">
+                                       <img src="/public/image/comment.png" alt="Smiley face" height="42" width="42">
+                                      </a>  
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <% }); %>
                 </div>
             </div>
         </div>

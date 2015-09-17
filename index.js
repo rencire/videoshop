@@ -37,15 +37,16 @@ var comment=[
 // AWS Env Vars
 var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY;
 var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
-var S3_BUCKET = process.env.S3_BUCKET
+var S3_BUCKET = process.env.S3_BUCKET;
 
 // DB connection string
-var url = process.env.MONGOLAB_URI
+var url = process.env.MONGOLAB_URI;
 
 
 app.get('/', function(request, response) {
   response.render('pages/index', {
-        user: user
+        menposts: manpost,
+        womemposts:womanpost
     })
 });
 
@@ -54,6 +55,7 @@ app.get('/comment', function(request, response) {
   response.render('pages/db',{
   	comment:comment
   })
+});
 
 app.get('/api/sign_s3', function(req, res) {
   // add check for only video files: .mp4, etc.
