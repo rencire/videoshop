@@ -45,9 +45,19 @@
     form {
         padding-top: 70px;
     }
+
+    #uploadButton {
+      width:400px;  
+    } 
+
+    #video-preview {
+      margin-bottom:3rem;
+      display:none;
+    }
     </style>
     <!-- added js script here, might need to find a better place to put it -->
     <script type="text/javascript" charset="utf-8">
+
     function get_signed_request(file) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "/api/sign_s3?file_name=" + file.name + "&file_type=" + file.type);
@@ -72,7 +82,10 @@
             if (xhr.status === 200) {
                 // do stuff here once file is uploaded
                 // we should update preview image with generated 'url' from upload
-                //document.getElementById("video-preview").src = url;
+                var vp = document.getElementById("video-preview")
+                vp.src = url;
+                vp.style.display = "inline-block";
+
                 document.getElementById("video-url").value = url;
                 console.log("success");
 
@@ -135,19 +148,19 @@
 
     <form class="standard-form" action="/upload" method="post">
         <div class="row">
-            <div class="small-2 columns">&nbsp;</div>
-            <div class="small-12 columns">
-                <div class="row">
-                    <div class="small-2 columns" style="line-height:75px">Upload</div>
-                    <div class="small-14 columns">
-                          <input type="hidden" name="videoUrl" value="" id="video-url" />
-                          <input  type="file" id="video-file-input"  accept="video/*" capture style="display:none;">
-                          <div id="uploadButton" class="button tiny">upload</div>
-                    </div>
-                </div>
+            <div class="small-7 small-centered columns">
+                      <input type="hidden" name="videoUrl" value="" id="video-url" />
+                      <input  type="file" id="video-file-input"  accept="video/*" capture style="display:none;">
+                      <div id="uploadButton" class="button large">upload</div>
             </div>
-            <div class="small-2 columns">&nbsp;</div>
+            <div class="small-3 columns">&nbsp;</div>
         </div>
+
+        <div class="row">
+          <div class="small-3 columns">&nbsp;</div>
+          <video id="video-preview" class="small-10 small-centered columns" src="" autobuffer controls autoplay loop >
+        </div>
+
         <div class="row">
             <div class="small-2 columns">&nbsp;</div>
             <div class="small-12 columns">
