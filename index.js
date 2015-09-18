@@ -66,7 +66,7 @@ app.get('/', function(request, response) {
 
       var collection = db.collection('videos');
 
-      collection.find({}).toArray(function (err, result) {
+      collection.find().sort({uploadDate: -1}).toArray(function (err, result) {
         if (err) {
           console.log(err);
           res.json({error:"Could not videos retrieve from db "});
@@ -80,7 +80,7 @@ app.get('/', function(request, response) {
           });
 
         }
-        db.close()
+        db.close();
       });
     }
   });
@@ -88,11 +88,8 @@ app.get('/', function(request, response) {
 });
 
 app.get('/upload', function(req, res) {
-  res.render('pages/upload', {
-     
-  });
+  res.render('pages/upload');
 });
-
 
 
 
@@ -134,9 +131,43 @@ app.get('/api/sign_s3', function(req, res) {
   });
 });
 
+
 app.post('/upload', function(req, res) {
+   console.log("\nPOST /upload req.body:");
    console.log(req.body);
-   res.redirect('/');
+
+    mongodb.MongoClient.connect(url, function (err, db) {
+      if (err) {
+        console.log('Unable to connect to the mongoDB server. Error:', err);
+        res.send('System unavailable. try again later!');
+      } else {
+        console.log('Connection established to', url);
+
+        var collection = db.collection('videos');
+
+        //Create some videos
+        var video = {
+          user: 'videoplaybro', 
+          loops:1, 
+          filename: req.body.videoUrl,
+          category: req.body.category,
+          shopUrl: req.body.shopUrl,
+          uploadDate: new Date()
+        };
+
+        collection.insert(video, function (err, result) {
+          if (err) {
+            console.log(err);
+            res.send('System unavailable. try again later!');
+          } else {
+            console.log('Inserted %d documents into the "videos" collection. The documents inserted with "_id" are:', result.result.n, result);
+            res.redirect('/');
+          }
+          db.close();
+        });
+      }
+    });
+
 });
 
 app.get('/api/videofiles', function(req, res) {
@@ -193,9 +224,9 @@ app.get('/api/loaddb', function(req, res) {
       var collection = db.collection('videos');
 
       //Create some videos
-      var video1 = {user: 'teeswizzle', loops:3, filename: 'https://' + S3_BUCKET + '.s3.amazonaws.com/cologne.mp4', category: 'men', tags:['men','hat', 'summer'] };
-      var video2 = {user: 'starXOXO', loops:2, filename: 'https://' + S3_BUCKET + '.s3.amazonaws.com/Piano.mp4', category: 'women', tags:['female','dress', 'flashy', 'fall'] };
-      var video3 = {user: 'azndragon008', loops:6, filename: 'https://' + S3_BUCKET + '.s3.amazonaws.com/longBoots.mp4', category: 'women', tags:['heels','tall', 'formal']};
+      var video1 = {user: 'teeswizzle', loops:3, filename: 'https://' + S3_BUCKET + '.s3.amazonaws.com/cologne.mp4', category: 'men', uploadDate: new Date(2015, 8, 15) };
+      var video2 = {user: 'starXOXO', loops:2, filename: 'https://' + S3_BUCKET + '.s3.amazonaws.com/Piano.mp4', category: 'women', uploadDate: new Date(2015, 8, 16) };
+      var video3 = {user: 'azndragon008', loops:6, filename: 'https://' + S3_BUCKET + '.s3.amazonaws.com/longBoots.mp4', category: 'women', uploadDate: new Date(2015, 8, 17) };
 
       collection.insert([video1, video2, video3], function (err, result) {
         if (err) {
@@ -209,6 +240,30 @@ app.get('/api/loaddb', function(req, res) {
   });
   res.send();
 });
+
+app.get('/api/cleardb', function(req, res) {
+  // Use connect method to connect to the Server
+  mongodb.MongoClient.connect(url, function (err, db) {
+    if (err) {
+      console.log('Unable to connect to the mongoDB server. Error:', err);
+    } else {
+      console.log('Connection established to', url);
+
+      var collection = db.collection('videos');
+
+      collection.drop(function (err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Dropped videos collection');
+        }
+        db.close();
+      });
+    }
+  });
+  res.send();
+});
+
 
 
 app.listen(app.get('port'), function() {

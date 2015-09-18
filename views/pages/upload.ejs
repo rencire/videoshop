@@ -131,14 +131,17 @@
             </header>
         </div>
     </div>
-    <form class="standard-form" action="/upload" method="post" onsubmit="validate()">
+
+
+    <form class="standard-form" action="/upload" method="post">
         <div class="row">
             <div class="small-2 columns">&nbsp;</div>
             <div class="small-12 columns">
                 <div class="row">
                     <div class="small-2 columns" style="line-height:75px">Upload</div>
                     <div class="small-14 columns">
-                          <input  type="file" id="video-file-input" name="video" accept="video/*" capture style="display:none;">
+                          <input type="hidden" name="videoUrl" value="" id="video-url" />
+                          <input  type="file" id="video-file-input"  accept="video/*" capture style="display:none;">
                           <div id="uploadButton" class="button tiny">upload</div>
                     </div>
                 </div>
@@ -165,8 +168,8 @@
         <div class="row">
             <div class="small-2 columns">&nbsp;</div>
             <div class="small-12 columns">
-                <image src="" id="prodimage"/> 
-                <input type="hidden" value="" name="videoUrl" id="url" />
+                <image src="" id="prodimage" alt=""/> 
+                <input type="hidden" value="" name="shopUrl" id="url" />
             </div>
             <div class="small-2 columns">&nbsp;</div>
         </div>
