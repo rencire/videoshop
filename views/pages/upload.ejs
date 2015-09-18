@@ -73,8 +73,9 @@
                 // do stuff here once file is uploaded
                 // we should update preview image with generated 'url' from upload
                 //document.getElementById("video-preview").src = url;
-                //document.getElementById("video-url").value = url;
-                console.log("success")
+                document.getElementById("video-url").value = url;
+                console.log("success");
+
             }
         };
         xhr.onerror = function() {
@@ -100,28 +101,8 @@
 </head>
 
 <body>
-    <!-- <video id="video-preview" src="" controls>
-    </video>-->
-    <!-- need video-url, category, shop-link -->
-    <!-- <form action="/upload" method="post" enctype="application/x-www-form-urlencoded">
-      <div class="row">
-        <div class="large-6 columns">
-          <label>Choose Category:</label>
-          <input type="radio" name="men" value="men" id="categoryMen">
-          <label for="categoryMen">Men</label>
+   
 
-          <input type="radio" name="men" value="women" id="categoryWomen">
-          <label for="categoryWomen">Women</label>
-        </div>
-
-      <input type="hidden" id="video-url" name="video-url" value="some_video_url" />
-
-     <div class="row">
-       <div class="small-7 small-centered columns">
-          <input class="button large" type="submit" value="Post Video">
-       </div>
-     </div>
-   </form>-->
     <div class="m-header">
         <div class="row">
             <a href="/">
@@ -193,10 +174,10 @@
             <div class="small-2 columns">&nbsp;</div>
             <div class="small-12 columns">
                  <label>Choose Category:</label>
-          <input type="radio" name="men" value="men" id="categoryMen">
+          <input type="radio" name="category" value="men" id="categoryMen">
           <label for="categoryMen">Men</label>
 
-          <input type="radio" name="men" value="women" id="categoryWomen">
+          <input type="radio" name="category" value="women" id="categoryWomen">
           <label for="categoryWomen">Women</label>
             </div>
             <div class="small-2 columns">&nbsp;</div>
@@ -219,7 +200,6 @@ $(document).ready(function () {
     $("input").on("keydown", function search(e) {
         if (e.keyCode == 13) {
             var searchString = $(this).val();
-            debugger;
             console.log(searchString);
             $.ajax({
                 //wayfarer
@@ -255,7 +235,6 @@ $(document).ready(function () {
     });
 
     $('#productlist').change(function () {
-        debugger;
         var index = $(this).val();
         $("#prodimage").attr("src", prodimage[index]);
         $("#url").attr("value", prodlink[index]);
