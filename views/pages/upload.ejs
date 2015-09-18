@@ -41,6 +41,15 @@
         background-size: 7% 50%;
         cursor: pointer;
     }
+    .searchButton{
+      margin-top: 8px !important;
+    margin-left: 0 !important;
+    height: 44px;
+    background-size: 95%;
+    background-repeat: no-repeat;
+    background-image: url(http://2.resources.macys.com.edgekey.net/B/x/LzrEz0V2Y.png);
+}
+    }
     
     form {
         padding-top: 70px;
@@ -101,8 +110,6 @@
 </head>
 
 <body>
-   
-
     <div class="m-header">
         <div class="row">
             <a href="/">
@@ -120,13 +127,12 @@
                         <a target="_top" href="/">
                             <div id="macysHomePageLogo" class="globalMastheadLogo" alt="Macy's" title="Macy's"></div>
                         </a>
-
                     </div>
                     <div class="right">
-                      <a target="_top" href="/">
+                        <a target="_top" href="/">
                             <img src="/public/image/videoUpload.jpeg" alt="Smiley face" height="42" width="42">
                         </a>
-                    </div>  
+                    </div>
                 </div>
             </header>
         </div>
@@ -138,8 +144,8 @@
                 <div class="row">
                     <div class="small-2 columns" style="line-height:75px">Upload</div>
                     <div class="small-14 columns">
-                          <input  type="file" id="video-file-input" name="video" accept="video/*" capture style="display:none;">
-                          <div id="uploadButton" class="button tiny">upload</div>
+                        <input type="file" id="video-file-input" name="video" accept="video/*" capture style="display:none;">
+                        <div id="uploadButton" class="button tiny">upload</div>
                     </div>
                 </div>
             </div>
@@ -149,7 +155,14 @@
             <div class="small-2 columns">&nbsp;</div>
             <div class="small-12 columns">
                 <label for "creditcadfirstname"="">Enter Product tag </label>
-                <input id="searchText" name="search" type="text">
+                <div class="row">
+                    <div class="small-15 columns" style="padding: 0;">
+                        <input id="searchText" name="search" type="text">
+                    </div>
+                    <div class="small-1 columns" style="padding: 0px;">
+                        <input class="button tiny searchButton" id="searchbutton" name="search" type="button" >
+                    </div>
+                </div>
             </div>
             <div class="small-2 columns">&nbsp;</div>
         </div>
@@ -165,7 +178,7 @@
         <div class="row">
             <div class="small-2 columns">&nbsp;</div>
             <div class="small-12 columns">
-                <image src="" id="prodimage"/> 
+                <image src="" id="prodimage" />
                 <input type="hidden" value="" name="videoUrl" id="url" />
             </div>
             <div class="small-2 columns">&nbsp;</div>
@@ -173,33 +186,30 @@
         <div class="row">
             <div class="small-2 columns">&nbsp;</div>
             <div class="small-12 columns">
-                 <label>Choose Category:</label>
-          <input type="radio" name="category" value="men" id="categoryMen">
-          <label for="categoryMen">Men</label>
-
-          <input type="radio" name="category" value="women" id="categoryWomen">
-          <label for="categoryWomen">Women</label>
+                <label>Choose Category:</label>
+                <input type="radio" name="category" value="men" id="categoryMen">
+                <label for="categoryMen">Men</label>
+                <input type="radio" name="category" value="women" id="categoryWomen">
+                <label for="categoryWomen">Women</label>
             </div>
             <div class="small-2 columns">&nbsp;</div>
         </div>
         <div class="row">
             <div class="small-2 columns">&nbsp;</div>
             <div class="small-12 columns">
-                 <input class="button tiny" type="submit" value="Post Video">
+                <input class="button tiny" type="submit" value="Post Video">
             </div>
             <div class="small-2 columns">&nbsp;</div>
         </div>
-
     </form>
 </body>
-
 <script>
-$(document).ready(function () {
+$(document).ready(function() {
     var prodlink = new Array();
     var prodimage = new Array();
-    $("input").on("keydown", function search(e) {
-        if (e.keyCode == 13) {
-            var searchString = $(this).val();
+    $("#searchbutton").on("click", function search(e) {
+        
+            var searchString = $("#searchText").val();
             console.log(searchString);
             $.ajax({
                 //wayfarer
@@ -207,9 +217,9 @@ $(document).ready(function () {
                 //set headers with your key and select json
                 headers: {
                     'Accept': 'application/json',
-                        'X-Macys-Webservice-Client-Id': 'mcomhackdays2015'
+                    'X-Macys-Webservice-Client-Id': 'mcomhackdays2015'
                 },
-                success: function (data) {
+                success: function(data) {
                     //do something with your data
                     var test = data,
                         length = test.searchresultgroups[0].products.product.length;
@@ -219,9 +229,9 @@ $(document).ready(function () {
                     for (var i = 0; i < length; i++) {
                         prodlink[i] = test.searchresultgroups[0].products.product[i].summary.producturl;
                         prodimage[i] = test.searchresultgroups[0].products.product[i].image[0].imageurl
-                        /* $('#productlist').append(
-                        $("<option></option>")
-                            .html("<img src='" + test.searchresultgroups[0].products.product[i].image[0].imageurl + "' data-link='" + test.searchresultgroups[0].products.product[i].summary.producturl + " '/>"));*/
+                            /* $('#productlist').append(
+                            $("<option></option>")
+                                .html("<img src='" + test.searchresultgroups[0].products.product[i].image[0].imageurl + "' data-link='" + test.searchresultgroups[0].products.product[i].summary.producturl + " '/>"));*/
                         $('#productlist').append($("<option></option>").attr("value", i).html(test.searchresultgroups[0].products.product[i].summary.name))
 
                     }
@@ -231,18 +241,18 @@ $(document).ready(function () {
                 }
             })
             return false;
-        }
+        
     });
 
-    $('#productlist').change(function () {
+    $('#productlist').change(function() {
         var index = $(this).val();
         $("#prodimage").attr("src", prodimage[index]);
         $("#url").attr("value", prodlink[index]);
 
 
     });
-    $("#uploadButton").click(function(e){
-          $("#video-file-input").click(); 
+    $("#uploadButton").click(function(e) {
+        $("#video-file-input").click();
     });
 
 });
