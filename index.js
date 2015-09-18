@@ -27,12 +27,12 @@ var user = [
 
 
 var comment=[
-{picture:'https://placeholdit.imgix.net/~text?txtsize=33&txt=30*30&w=30&h=10',name:'PrettyBetty',comment:'Ohhh pretty'},
-{picture:'https://placeholdit.imgix.net/~text?txtsize=33&txt=30*30&w=30&h=10',name:'omggirl',comment:'omgomgomgomgomgomgomg'},
-{picture:'https://placeholdit.imgix.net/~text?txtsize=33&txt=30*30&w=30&h=10',name:'NiceGuy',comment:'This is nice!'},
-{picture:'https://placeholdit.imgix.net/~text?txtsize=33&txt=30*30&w=30&h=10',name:'lauralovesyou',comment:'i love this'},
-{picture:'https://placeholdit.imgix.net/~text?txtsize=33&txt=30*30&w=30&h=10',name:'stylishSam',comment:'stylish...'},
-{picture:'https://placeholdit.imgix.net/~text?txtsize=33&txt=30*30&w=30&h=10',name:'jameyjams',comment:'this fits perfectly!'}
+{picture:'/public/image/ProfileImages/goldChain_Luke.jpg',name:'PrettyBetty',comment:'Ohhh pretty'},
+{picture:'/public/image/ProfileImages/pinkDress_Rachel.jpg',name:'omggirl',comment:'omgomgomgomgomgomgomg'},
+{picture:'/public/image/ProfileImages/TaylorSwift_Taylor Fan.jpg',name:'NiceGuy',comment:'This is nice!'},
+{picture:'/public/image/ProfileImages/UGCGirl_Julie.jpg',name:'lauralovesyou',comment:'i love this'},
+{picture:'/public/image/ProfileImages/greenDress_Mary.jpg',name:'stylishSam',comment:'stylish...'},
+{picture:'/public/image/ProfileImages/kateSpadeBag_Kate Spade.jpg',name:'jameyjams',comment:'this fits perfectly!'}
 ];
 
 // AWS Env Vars

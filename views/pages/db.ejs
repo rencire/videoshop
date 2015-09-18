@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="/public/stylesheets/macys-base.css">
+      <link rel="stylesheet" href="/public/stylesheets/main.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js">
     </script>
     <style>
@@ -12,15 +13,15 @@
       }
       .commentRow{
       	    border-top: 1px solid #eee;
-    		height: 68px;
+    		height: 103px;
       }
       .commentUser{
       	font-size:25px;
       	font-weight:bold;
-      	margin-top: 8px;
+      	margin-top: 15px;
       }
       .comment{
-      	margin-top:5px;
+      	margin-top:10px;
       }
       .m-header {
     background: #efefef;
@@ -61,14 +62,14 @@
                     </div>
                     <div class="right">
                       <a target="_top" href="/">
-                            <img src="/public/image/videoUpload.jpeg" alt="Smiley face" height="42" width="42">
+                            <img src="/public/image/videoUpload.jpeg" alt="Smiley face" height="42" width="80">
                         </a>
                     </div> 
                 </div>
             </header>
         </div>
     </div>
-    <div id="commentarea">
+    <div id="commentarea" style="margin-top: 35px;">
     <% comment.forEach(function(comment) { %>
     <div class="row commentRow">
         <div class="commentImage small-1 small-offset-1  columns">
