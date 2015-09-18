@@ -81,7 +81,6 @@
     
     .userimage {
         border-radius: 50%;
-        background-image: url('http://placehold.it/350x150');
         height: 54px;
         margin-top: 10px;
         margin-bottom: 10px;
@@ -113,6 +112,7 @@
 
 </head>
 
+
 <body>
     <div class="row">
         <div class="large-16 columns">
@@ -125,7 +125,7 @@
                         </a>
 
                     </div>
-                    <div class="right">
+                    <div class="middle">
                       <a target="_top" href="/upload">
                             <img src="/public/image/videoUpload.jpeg" alt="Smiley face" height="42" width="42">
                         </a>
@@ -147,6 +147,7 @@
                             <div class="small-16 medium-14 medium-centered columns userContainer">
                                 <div class="row rowTop">
                                     <div class="userimage small-1 small-offset-1 columns">
+                                        <img src="<%= womanpost.profile %>">
                                     </div>
                                     <div class="userdetails small-12 small-offset-1 columns">
                                         <%= womanpost.user %>
@@ -157,7 +158,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="small-16 columns">
-                                        <video autobuffer controls>
+                                        <video autobuffer controls loop>
                                             <source id="mp4" src="<%= womanpost.filename %>">
                                         </video>
                                     </div>
@@ -167,7 +168,11 @@
                                     <div class="comment small-10 small-centered  columns">
                                       <a href="/comment">
                                        <img src="/public/image/comment.png" alt="Smiley face" height="42" width="42">
-                                      </a>  
+                                      </a>
+                                      <div class="right">
+                                        <a href="<%= womanpost.url %>">
+                                        <button class="tiny">Shop Now</button> 
+                                      </div>
                                     </div>
                                 </div>
 
@@ -181,6 +186,7 @@
                             <div class="small-16 medium-14 medium-centered columns userContainer">
                                 <div class="row rowTop">
                                     <div class="userimage small-1 small-offset-1 columns">
+                                        <img src="<%= manpost.profile %>">
                                     </div>
                                     <div class="userdetails small-12 small-offset-1 columns">
                                         <%= manpost.user %>
@@ -191,7 +197,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="small-16 columns">
-                                        <video autobuffer controls>
+                                        <video autobuffer controls loop>
                                             <source id="mp4" src="<%= manpost.filename %>">
                                         </video>
                                     </div>
@@ -201,7 +207,11 @@
                                     <div class="comment small-10 small-centered  columns">
                                       <a href="/comment">
                                        <img src="/public/image/comment.png" alt="Smiley face" height="42" width="42">
-                                      </a>  
+                                      </a>
+                                      <div class="right">
+                                        <a href="<%= manpost.url %>">
+                                        <button class="tiny">Shop Now</button> 
+                                      </div>  
                                     </div>
                                 </div>
 
