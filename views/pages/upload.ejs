@@ -72,8 +72,9 @@
             if (xhr.status === 200) {
                 // do stuff here once file is uploaded
                 // we should update preview image with generated 'url' from upload
-                document.getElementById("video-preview").src = url;
-                document.getElementById("video-url").value = url;
+                //document.getElementById("video-preview").src = url;
+                //document.getElementById("video-url").value = url;
+                console.log("success")
             }
         };
         xhr.onerror = function() {
@@ -87,7 +88,7 @@
             var files = document.getElementById("video-file-input").files;
             console.log("files:");
             console.log(files);
-            var file = files[1];
+            var file = files[0];
             if (file == null) {
                 alert("No file selected.");
             } else {
@@ -148,9 +149,10 @@
             <div class="small-2 columns">&nbsp;</div>
             <div class="small-12 columns">
                 <div class="row">
-                    <div class="small-2 columns" style="line-height:70px">Upload</div>
+                    <div class="small-2 columns" style="line-height:75px">Upload</div>
                     <div class="small-14 columns">
-                        <input class="button tiny" type="submit" value="upload Video">
+                          <input  type="file" id="video-file-input" name="video" accept="video/*" capture style="display:none;">
+                          <div id="uploadButton" class="button tiny">upload</div>
                     </div>
                 </div>
             </div>
@@ -177,7 +179,19 @@
             <div class="small-2 columns">&nbsp;</div>
             <div class="small-12 columns">
                 <image src="" id="prodimage"/> 
-                <input type="hidden" value="" name="url" id="url" />
+                <input type="hidden" value="" name="video-url" id="url" />
+            </div>
+            <div class="small-2 columns">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="small-2 columns">&nbsp;</div>
+            <div class="small-12 columns">
+                 <label>Choose Category:</label>
+          <input type="radio" name="men" value="men" id="categoryMen">
+          <label for="categoryMen">Men</label>
+
+          <input type="radio" name="men" value="women" id="categoryWomen">
+          <label for="categoryWomen">Women</label>
             </div>
             <div class="small-2 columns">&nbsp;</div>
         </div>
@@ -188,6 +202,7 @@
             </div>
             <div class="small-2 columns">&nbsp;</div>
         </div>
+
     </form>
 </body>
 
@@ -240,6 +255,9 @@ $(document).ready(function () {
         $("#url").attr("value", prodlink[index]);
 
 
+    });
+    $("#uploadButton").click(function(e){
+          $("#video-file-input").click(); 
     });
 
 });
