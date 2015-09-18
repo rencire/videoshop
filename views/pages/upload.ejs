@@ -73,8 +73,8 @@
                 // do stuff here once file is uploaded
                 // we should update preview image with generated 'url' from upload
                 //document.getElementById("video-preview").src = url;
-                //document.getElementById("video-url").value = url;
-                console.log("success")
+                document.getElementById("videoUrl").value = url;
+                console.log("success");
             }
         };
         xhr.onerror = function() {
@@ -114,7 +114,7 @@
           <label for="categoryWomen">Women</label>
         </div>
 
-      <input type="hidden" id="video-url" name="video-url" value="some_video_url" />
+      <input type="hidden" id="video-url" name="videoUrl" value="some_video_url" />
 
      <div class="row">
        <div class="small-7 small-centered columns">
@@ -144,6 +144,9 @@
             </header>
         </div>
     </div>
+
+
+
     <form class="standard-form" action="/upload" method="post" onsubmit="validate()">
         <div class="row">
             <div class="small-2 columns">&nbsp;</div>
@@ -151,6 +154,7 @@
                 <div class="row">
                     <div class="small-2 columns" style="line-height:75px">Upload</div>
                     <div class="small-14 columns">
+                          <input type="hidden" id="video-url" name="videoUrl" value="some_video_url" />
                           <input  type="file" id="video-file-input" name="video" accept="video/*" capture style="display:none;">
                           <div id="uploadButton" class="button tiny">upload</div>
                     </div>
@@ -178,8 +182,8 @@
         <div class="row">
             <div class="small-2 columns">&nbsp;</div>
             <div class="small-12 columns">
-                <image src="" id="prodimage"/> 
-                <input type="hidden" value="" name="video-url" id="url" />
+                <image src="" id="prodimage" alt=""/> 
+                <input type="hidden" value="" name="shopUrl" id="url" />
             </div>
             <div class="small-2 columns">&nbsp;</div>
         </div>
